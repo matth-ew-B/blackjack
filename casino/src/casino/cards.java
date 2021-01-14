@@ -17,7 +17,7 @@ public class cards {
     protected boolean isShuffled;
     public cards(int sut,int nm){
         isPlayed =false;
-         isShuffled =false;
+        isShuffled =false;
         num = nm;
         String sNum;
         sNum = num+"";
