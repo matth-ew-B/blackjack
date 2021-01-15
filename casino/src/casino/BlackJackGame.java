@@ -20,6 +20,7 @@ import java.io.FileWriter;
 public class BlackJackGame {
 
     DecimalFormat df = new DecimalFormat("$#,###.00");
+    player user = new player();
 
     /**
      * @param args the command line arguments
@@ -29,7 +30,6 @@ public class BlackJackGame {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 13; j++) {
                 card.add(new cards(i, j + 1));
-
             }
         }
         for (int i = 0; i < card.size(); i++) {
@@ -53,16 +53,14 @@ public class BlackJackGame {
     public static void changeMoney(int newMone) {
         try {
             FileWriter myWriter = new FileWriter("src//casino//userMoney.txt");
-            BufferedWriter bw =new BufferedWriter(myWriter);
-            bw.write(newMone);
+            BufferedWriter bw = new BufferedWriter(myWriter);
+            bw.write(newMone + "");
             bw.close();
         } catch (IOException e) {
             System.out.println("Error: " + e);
         }
     }
-    
-    
-    
+
     //Determines if an ace has been drawn with a value of 11
     //In order to change the value to a 1
     static boolean ace;
@@ -93,9 +91,10 @@ public class BlackJackGame {
     /**
      * Draws a random card from the deck and adds points based on the value of
      * the card
+     *
      * @param points the total points for the player's/bots hand that will be
      * modified in the method
-     * @return 
+     * @return
      */
     public static int drawCard(int points) {
         //If the deck is empty, it resets it by calling upon the newDeck method
@@ -109,10 +108,10 @@ public class BlackJackGame {
         deck.remove(rand);
 
         //Assigns the value of the card
-        if (draw.num > 1 && draw.num < 12) {
+        if (draw.num > 1 && draw.num < 11) {
             points += draw.num;
-        } else if (draw.num >= 12) {
-            points += 13;
+        } else if (draw.num >= 11) {
+            points += 10;
         } else {
             if (points > 10) {
                 points += 1;
@@ -121,7 +120,7 @@ public class BlackJackGame {
                 ace = true;
             }
         }
-        return(points);
+        return (points);
     }
 
     //Non player turn
@@ -130,6 +129,5 @@ public class BlackJackGame {
             botTotal = drawCard(botTotal);
         }
     }
-    
-    
+
 }
