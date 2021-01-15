@@ -13,11 +13,7 @@ public class cards {
     protected String name;
     protected String suit;
     protected int num;
-    protected boolean isPlayed;
-    protected boolean isShuffled;
     public cards(int sut,int nm){
-        isPlayed =false;
-        isShuffled =false;
         num = nm;
         String sNum;
         sNum = num+"";
