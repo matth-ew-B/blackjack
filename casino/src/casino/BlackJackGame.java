@@ -60,5 +60,76 @@ public class BlackJackGame {
             System.out.println("Error: " + e);
         }
     }
+    
+    
+    
+    //Determines if an ace has been drawn with a value of 11
+    //In order to change the value to a 1
+    static boolean ace;
 
+    //Points that determine whether the player wins or loses with their hand
+    static int handTotal = 0;
+
+    //Points that determine whether the player wins or loses with their hand
+    static int botTotal = 0;
+
+    //Array that holds all the cards
+    //Represents the deck
+    static ArrayList<cards> deck = new ArrayList();
+
+    /**
+     * Creates a new deck by calling upon the constructor class for cards And
+     * then putting them into an array
+     */
+    public static void newDeck() {
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 13; j++) {
+                deck.add(new cards(i, j + 1));
+            }
+        }
+
+    }
+
+    /**
+     * Draws a random card from the deck and adds points based on the value of
+     * the card
+     * @param points the total points for the player's/bots hand that will be
+     * modified in the method
+     * @return 
+     */
+    public static int drawCard(int points) {
+        //If the deck is empty, it resets it by calling upon the newDeck method
+        if (deck.isEmpty()) {
+            newDeck();
+        }
+
+        //removes and stores the card from a random index of the array
+        int rand = (int) (Math.random() * (deck.size()));
+        cards draw = deck.get(rand);
+        deck.remove(rand);
+
+        //Assigns the value of the card
+        if (draw.num > 1 && draw.num < 12) {
+            points += draw.num;
+        } else if (draw.num >= 12) {
+            points += 13;
+        } else {
+            if (points > 10) {
+                points += 1;
+            } else {
+                points += 11;
+                ace = true;
+            }
+        }
+        return(points);
+    }
+
+    //Non player turn
+    public static void botTurn() {
+        while (botTotal < 17) {
+            botTotal = drawCard(botTotal);
+        }
+    }
+    
+    
 }
