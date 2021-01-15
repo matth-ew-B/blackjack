@@ -32,29 +32,3 @@ public class BlackJack {
 
 	}
 
-
-// This code calculates all possible outcomes and adds or removes the player bets
-	public void settleBets() {
-		System.out.println();
-
-		for (int i = 0; i < users; i++) {
-			if (user.getBet() > 0 ) {
-				if( player[i].getTotal() > 21 ) {
-					System.out.println(player[i].getName() + " has busted");
-					player[i].bust();
-				} else if ( player[i].getTotal() == dealer.calculateTotal() ) {
-					System.out.println(player[i].getName() + " has pushed");
-					player[i].push();
-				} else if ( player[i].getTotal() < dealer.calculateTotal() && dealer.calculateTotal() <= 21 ) {
-					System.out.println(player[i].getName() + " has lost");
-					player[i].loss();
-				} else if (player[i].getTotal() == 21) {
-					System.out.println(player[i].getName() + " has won with blackjack!");
-					player[i].blackjack();
-				} else {
-					System.out.println(player[i].getName() + " has won");
-					player[i].win();
-
-				}
-			}
-		}
