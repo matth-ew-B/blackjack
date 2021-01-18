@@ -12,11 +12,12 @@ import java.awt.Color;
  * @author Han
  */
 public class BlackJack extends javax.swing.JFrame {
-
+static int playerScore = 0;
     /**
      * Creates new form BlackJack
      */
     public BlackJack() {
+        
         initComponents();
         
         this.getContentPane().setBackground(new java.awt.Color(0,100,0));
@@ -32,7 +33,7 @@ public class BlackJack extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        hitButton = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
@@ -84,8 +85,13 @@ public class BlackJack extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton1.setText("Hit");
+        hitButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        hitButton.setText("Hit");
+        hitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hitButtonActionPerformed(evt);
+            }
+        });
 
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton2.setText("Hold");
@@ -218,6 +224,7 @@ public class BlackJack extends javax.swing.JFrame {
         });
 
         jBet.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jBet.setText("0");
         jBet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBetActionPerformed(evt);
@@ -311,7 +318,7 @@ public class BlackJack extends javax.swing.JFrame {
                             .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(216, 216, 216)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(hitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(237, 237, 237)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(172, 172, 172)
@@ -400,7 +407,7 @@ public class BlackJack extends javax.swing.JFrame {
                         .addComponent(jLabel7)))
                 .addGap(53, 53, 53)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(hitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(132, Short.MAX_VALUE))
@@ -482,8 +489,15 @@ public class BlackJack extends javax.swing.JFrame {
     }//GEN-LAST:event_nameActionPerformed
 
     private void betActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_betActionPerformed
-        // TODO add your handling code here:
+        addremoveBet();
     }//GEN-LAST:event_betActionPerformed
+
+    private void hitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hitButtonActionPerformed
+playerScore = drawCard(playerScore);
+if(playerScore==21){
+    user.winner();
+}
+    }//GEN-LAST:event_hitButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -523,8 +537,8 @@ public class BlackJack extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel TotMoney;
     private javax.swing.JButton bet;
+    private javax.swing.JButton hitButton;
     private javax.swing.JTextField jBet;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
