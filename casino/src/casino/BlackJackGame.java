@@ -20,7 +20,7 @@ import java.io.FileWriter;
 public class BlackJackGame {
 
     DecimalFormat df = new DecimalFormat("$#,###.00");
-    player user = new player();
+    public player user = new player();
 
     /**
      * @param args the command line arguments
@@ -120,39 +120,48 @@ public class BlackJackGame {
                 ace = true;
             }
         }
-        
-        //Changes a drawn ace from a value of 11 to 1 if the player or dealer busts 
-        if (ace == true && points > 21) {
-            points -= 10;
-            ace = false;
-        }
         return (points);
     }
 
-    /**
-     * After the player turn ends
-     * Dealer/program/bot turn
-     * Decides who wins the round
-     */
-    public static void endTurn() {
+    //Non player turn
+    public static void botTurn() {
         while (botTotal < 17) {
             botTotal = drawCard(botTotal);
         }
+    }
+    // Will get the bets from the player
 
-        System.out.println("DEALER:" + botTotal);
-        System.out.println("PLAYER: " + handTotal);
-        if (handTotal > 21 || (botTotal > handTotal && botTotal <= 21)) {
-            System.out.println("LOSE");
-        } else if (botTotal > 21 || (handTotal > botTotal && handTotal <= 21)) {
-            System.out.println("WIN");
-        } else {
-            System.out.println("TIE");
+    public void getBet() {
+        int betValue;
+
+        {
+            if (user.getBank() > 0) {
+                do {
+                    System.out.print("How much would you like to bet?");
+                    betValue = input.nextInt();
+                    user.setBet(betValue);
+                } while (!(betValue > 0 && betValue <= user.getBank()));
+
+            }
+
         }
-        //resets the hand for the bot and player
-        handTotal = 0;
-        botTotal = 0;
 
     }
+
+// This code will add or remove the player bets
+    public void addremoveBet() {
+
+        if (user.getBet() > 0) {
+            if (user.getTotal() > 21) {
+                System.out.println("you have busted");
+            } else if (user.getTotal() < dealer.calculateTotal() && dealer.calculateTotal() <= 21) {
+                System.out.println(user + " has lost");
+            } else if (user.getTotal() == 21) {
+                System.out.println("You have won blackjack!");
+            } else {
+                System.out.println("You have won");
+
+            }
         }
     }
 
