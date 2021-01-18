@@ -120,13 +120,39 @@ public class BlackJackGame {
                 ace = true;
             }
         }
+        
+        //Changes a drawn ace from a value of 11 to 1 if the player or dealer busts 
+        if (ace == true && points > 21) {
+            points -= 10;
+            ace = false;
+        }
         return (points);
     }
 
-    //Non player turn
-    public static void botTurn() {
+    /**
+     * After the player turn ends
+     * Dealer/program/bot turn
+     * Decides who wins the round
+     */
+    public static void endTurn() {
         while (botTotal < 17) {
             botTotal = drawCard(botTotal);
+        }
+
+        System.out.println("DEALER:" + botTotal);
+        System.out.println("PLAYER: " + handTotal);
+        if (handTotal > 21 || (botTotal > handTotal && botTotal <= 21)) {
+            System.out.println("LOSE");
+        } else if (botTotal > 21 || (handTotal > botTotal && handTotal <= 21)) {
+            System.out.println("WIN");
+        } else {
+            System.out.println("TIE");
+        }
+        //resets the hand for the bot and player
+        handTotal = 0;
+        botTotal = 0;
+
+    }
         }
     }
 
