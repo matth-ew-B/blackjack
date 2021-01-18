@@ -535,17 +535,13 @@ if(playerScore==21){
     //Determines if an ace has been drawn with a value of 11
     //In order to change the value to a 1
     static boolean ace;
-
     //Points that determine whether the player wins or loses with their hand
     static int handTotal = 0;
-
     //Points that determine whether the player wins or loses with their hand
     static int botTotal = 0;
-
     //Array that holds all the cards
     //Represents the deck
     static ArrayList<cards> deck = new ArrayList();
-
     /**
      * Creates a new deck by calling upon the constructor class for cards And
      * then putting them into an array
@@ -556,7 +552,6 @@ if(playerScore==21){
                 deck.add(new cards(i, j + 1));
             }
         }
-
     }
 
     /**
@@ -572,12 +567,10 @@ if(playerScore==21){
         if (deck.isEmpty()) {
             newDeck();
         }
-
         //removes and stores the card from a random index of the array
         int rand = (int) (Math.random() * (deck.size()));
         cards draw = deck.get(rand);
         deck.remove(rand);
-
         //Assigns the value of the card
         if (draw.num > 1 && draw.num < 11) {
             points += draw.num;
@@ -591,17 +584,36 @@ if(playerScore==21){
                 ace = true;
             }
         }
+
+        //Changes a drawn ace from a value of 11 to 1 if the player or dealer busts 
+        if (ace == true && points > 21) {
+            points -= 10;
+            ace = false;
+        }
         return (points);
     }
 
-    //Non player turn
-    public static void botTurn() {
+    public static void endTurn() {
         while (botTotal < 17) {
             botTotal = drawCard(botTotal);
         }
-    }
-    // Will get the bets from the player
 
+        System.out.println("DEALER:" + botTotal);
+        System.out.println("PLAYER: " + handTotal);
+        if (handTotal > 21 || (botTotal > handTotal && botTotal <= 21)) {
+            System.out.println("LOSE");
+        } else if (botTotal > 21 || (handTotal > botTotal && handTotal <= 21)) {
+            System.out.println("WIN");
+        } else {
+            System.out.println("TIE");
+        }
+        //resets the hand for the bot and player
+        handTotal = 0;
+        botTotal = 0;
+
+    }
+    
+    // Will get the bets from the player
     public void getBet(int bet) {
         int betValue;
 
