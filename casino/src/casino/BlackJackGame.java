@@ -131,14 +131,13 @@ public class BlackJackGame {
     }
     // Will get the bets from the player
 
-    public void getBet() {
+    public void getBet(int bet) {
         int betValue;
 
         {
             if (user.getBank() > 0) {
                 do {
-                    System.out.print("How much would you like to bet?");
-                    betValue = input.nextInt();
+                    betValue = bet;
                     user.setBet(betValue);
                 } while (!(betValue > 0 && betValue <= user.getBank()));
 
